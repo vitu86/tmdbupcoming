@@ -32,33 +32,33 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MovieListCell" id="lJ9-8o-kZk">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MovieListCell" id="lJ9-8o-kZk" customClass="MovieListeCell" customModule="tmdbupcoming" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="200" height="250"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="200" height="250"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YEF-JZ-mQJ" customClass="MDCCard">
-                                                    <rect key="frame" x="20" y="20" width="160" height="210"/>
+                                                <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YEF-JZ-mQJ" customClass="MDCCard">
+                                                    <rect key="frame" x="10" y="10" width="180" height="230"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="f94-cW-kfv">
-                                                            <rect key="frame" x="0.0" y="0.0" width="160" height="118.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="180" height="138.5"/>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LJv-4s-iDc">
-                                                            <rect key="frame" x="10" y="128.5" width="140" height="20.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LJv-4s-iDc">
+                                                            <rect key="frame" x="10" y="148.5" width="160" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uaD-KI-Pyn">
-                                                            <rect key="frame" x="10" y="154" width="140" height="20.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uaD-KI-Pyn">
+                                                            <rect key="frame" x="10" y="174" width="160" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nw6-Fx-hSn">
-                                                            <rect key="frame" x="10" y="179.5" width="140" height="20.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nw6-Fx-hSn">
+                                                            <rect key="frame" x="10" y="199.5" width="160" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -79,17 +79,25 @@
                                                         <constraint firstAttribute="trailing" secondItem="f94-cW-kfv" secondAttribute="trailing" id="iiX-hr-Ii9"/>
                                                         <constraint firstItem="f94-cW-kfv" firstAttribute="leading" secondItem="YEF-JZ-mQJ" secondAttribute="leading" id="lAj-kl-gnk"/>
                                                         <constraint firstAttribute="trailing" secondItem="Nw6-Fx-hSn" secondAttribute="trailing" constant="10" id="ofh-vl-Cun"/>
+                                                        <constraint firstItem="f94-cW-kfv" firstAttribute="height" relation="greaterThanOrEqual" secondItem="YEF-JZ-mQJ" secondAttribute="height" multiplier="0.4" id="y7m-hf-7VW"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="YEF-JZ-mQJ" secondAttribute="trailing" constant="20" id="50L-TO-fXR"/>
-                                            <constraint firstItem="YEF-JZ-mQJ" firstAttribute="leading" secondItem="lJ9-8o-kZk" secondAttribute="leading" constant="20" id="Pd8-XV-8WQ"/>
-                                            <constraint firstAttribute="bottom" secondItem="YEF-JZ-mQJ" secondAttribute="bottom" constant="20" id="YQm-nW-2Lh"/>
-                                            <constraint firstItem="YEF-JZ-mQJ" firstAttribute="top" secondItem="lJ9-8o-kZk" secondAttribute="top" constant="20" id="j2y-rQ-Ahs"/>
+                                            <constraint firstAttribute="trailing" secondItem="YEF-JZ-mQJ" secondAttribute="trailing" constant="10" id="50L-TO-fXR"/>
+                                            <constraint firstItem="YEF-JZ-mQJ" firstAttribute="leading" secondItem="lJ9-8o-kZk" secondAttribute="leading" constant="10" id="Pd8-XV-8WQ"/>
+                                            <constraint firstAttribute="bottom" secondItem="YEF-JZ-mQJ" secondAttribute="bottom" constant="10" id="YQm-nW-2Lh"/>
+                                            <constraint firstItem="YEF-JZ-mQJ" firstAttribute="top" secondItem="lJ9-8o-kZk" secondAttribute="top" constant="10" id="j2y-rQ-Ahs"/>
                                         </constraints>
                                         <size key="customSize" width="200" height="250"/>
+                                        <connections>
+                                            <outlet property="card" destination="YEF-JZ-mQJ" id="dMI-iU-nDP"/>
+                                            <outlet property="genreLabel" destination="uaD-KI-Pyn" id="KHl-ZB-26L"/>
+                                            <outlet property="nameLabel" destination="LJv-4s-iDc" id="AYw-iA-H07"/>
+                                            <outlet property="posterImageView" destination="f94-cW-kfv" id="FSp-7x-nXa"/>
+                                            <outlet property="releaseDateLabel" destination="Nw6-Fx-hSn" id="hbq-n6-66d"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="MovieListFooter" id="yoe-55-frx">
@@ -97,7 +105,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="JdH-6q-Yr5">
-                                            <rect key="frame" x="197" y="15" width="20" height="20"/>
+                                            <rect key="frame" x="197" y="40" width="20" height="20"/>
                                         </activityIndicatorView>
                                     </subviews>
                                     <constraints>

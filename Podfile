@@ -8,7 +8,7 @@ target 'tmdbupcoming' do
   # Pods for tmdbupcoming
   pod 'Alamofire'
   pod 'AlamofireImage'
-  pod 'ObjectMapper'
+  pod 'AlamofireObjectMapper'
   pod 'MaterialComponents'
 
   target 'tmdbupcomingTests' do

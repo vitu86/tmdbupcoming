@@ -16,16 +16,14 @@ class MovieListViewController: UIViewController {
     
     // MARK: - Private Properties
     private var canLoadMore:Bool = true
-    private var dataSource:[Int] = []
+    private var dataSource:[Movie] = []
     
     
     // MARK: - UIViewController Override Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            self.loadData()
-        }
+        loadData()
     }
     
     // MARK: - Private Functions
@@ -36,18 +34,17 @@ class MovieListViewController: UIViewController {
     }
     
     private func loadData() {
-        if self.dataSource.count > 10 {
-            self.canLoadMore = false
-        }
-        var indexesToAdd:[IndexPath] = []
-        for i in 0 ..< 2 {
-            indexesToAdd.append(IndexPath(row: dataSource.count, section: 0))
-            dataSource.append(i)
-        }
-        movieCollection.insertItems(at: indexesToAdd)
         if canLoadMore {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                self.loadData()
+            NetworkHelper.sharedInstance.getNextMovieList { (movies) in
+                if movies.isEmpty {
+                    self.canLoadMore = false
+                }
+                var indexesToReload: [IndexPath] = []
+                for item in movies {
+                    indexesToReload.append(IndexPath(row: self.dataSource.count, section: 0))
+                    self.dataSource.append(item)
+                }
+                self.movieCollection.insertItems(at: indexesToReload)
             }
         }
     }
@@ -60,7 +57,11 @@ extension MovieListViewController: UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: UICollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieListCell", for: indexPath)
+        let cell: MovieListeCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieListCell", for: indexPath) as! MovieListeCell
+        let item = dataSource[indexPath.item]
+        
+        cell.setupCell(with: item)
+        
         return cell
     }
     
@@ -70,12 +71,10 @@ extension MovieListViewController: UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        print("Perguntou tamanho: ", canLoadMore)
         return canLoadMore ? CGSize(width: 100, height: 100) : CGSize.zero
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
-        // TODO: Load more data
-        // FIXME: Teste
+        self.loadData()
     }
 }
