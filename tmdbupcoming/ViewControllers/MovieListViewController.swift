@@ -26,6 +26,13 @@ class MovieListViewController: UIViewController {
         loadData()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "SegueToMovieDetail" {
+            let vc = segue.destination as! MovieDetailViewController
+            vc.movie = (sender as! Movie)
+        }
+    }
+    
     // MARK: - Private Functions
     private func configureUI() {
         // Configure CollectionView
@@ -76,5 +83,9 @@ extension MovieListViewController: UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
         self.loadData()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "SegueToMovieDetail", sender: dataSource[indexPath.item])
     }
 }

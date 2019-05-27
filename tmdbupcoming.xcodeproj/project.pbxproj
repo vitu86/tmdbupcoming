@@ -15,6 +15,7 @@
 		4E51FDEB229B63A60059C91C /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E51FDEA229B63A60059C91C /* Movie.swift */; };
 		4E51FDEE229B64C90059C91C /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E51FDED229B64C90059C91C /* NetworkHelper.swift */; };
 		4E51FDF5229B7B070059C91C /* MovieListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E51FDF4229B7B070059C91C /* MovieListCell.swift */; };
+		4E51FDF7229B86D90059C91C /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E51FDF6229B86D90059C91C /* MovieDetailViewController.swift */; };
 		4EC3EE6F229B427B00AC09B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC3EE6E229B427B00AC09B3 /* AppDelegate.swift */; };
 		4EC3EE74229B427B00AC09B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EC3EE72229B427B00AC09B3 /* Main.storyboard */; };
 		4EC3EE76229B427B00AC09B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EC3EE75229B427B00AC09B3 /* Assets.xcassets */; };
@@ -50,6 +51,7 @@
 		4E51FDEA229B63A60059C91C /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		4E51FDED229B64C90059C91C /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		4E51FDF4229B7B070059C91C /* MovieListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListCell.swift; sourceTree = "<group>"; };
+		4E51FDF6229B86D90059C91C /* MovieDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
 		4EC3EE6B229B427B00AC09B3 /* tmdbupcoming.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tmdbupcoming.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EC3EE6E229B427B00AC09B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4EC3EE73229B427B00AC09B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				4E51FDE5229B50200059C91C /* MovieListViewController.swift */,
+				4E51FDF6229B86D90059C91C /* MovieDetailViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -453,6 +456,7 @@
 				4E51FDE4229B4C120059C91C /* UIViewController+Additions.swift in Sources */,
 				4E51FDE6229B50200059C91C /* MovieListViewController.swift in Sources */,
 				4E51FDE9229B62870059C91C /* Genre.swift in Sources */,
+				4E51FDF7229B86D90059C91C /* MovieDetailViewController.swift in Sources */,
 				4E51FDEE229B64C90059C91C /* NetworkHelper.swift in Sources */,
 				4E51FDF5229B7B070059C91C /* MovieListCell.swift in Sources */,
 				4E51FDEB229B63A60059C91C /* Movie.swift in Sources */,
