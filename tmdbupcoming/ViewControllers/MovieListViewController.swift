@@ -11,12 +11,15 @@ import UIKit
 class MovieListViewController: UIViewController {
     
     // MARK: - IBOutlets
-    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var movieCollection: UICollectionView!
     
+    // MARK: - Internal Properties (visible to extensions)
+    internal var canLoadMore: Bool = true
+    internal var dataSource: [Movie] = []
+    internal var searchBar: UISearchBar = UISearchBar()
+    
     // MARK: - Private Properties
-    private var canLoadMore:Bool = true
-    private var dataSource:[Movie] = []
+    private var searchButton: UIBarButtonItem!
     
     
     // MARK: - UIViewController Override Functions
@@ -38,9 +41,18 @@ class MovieListViewController: UIViewController {
         // Configure CollectionView
         movieCollection.delegate = self
         movieCollection.dataSource = self
+        
+        // ConfigureSearchBar
+        searchBar.delegate = self
+        searchBar.showsCancelButton = true
+        
+        searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(showSearchBar))
+        
+        hideSearchBar()
     }
     
-    private func loadData() {
+    // MARK: - Internal Functions (visible to extensions)
+    internal func loadData() {
         if canLoadMore {
             NetworkHelper.sharedInstance.getNextMovieList { (movies) in
                 if movies.isEmpty {
@@ -55,37 +67,30 @@ class MovieListViewController: UIViewController {
             }
         }
     }
-}
-
-// MARK: - UICollectionview Functions
-extension MovieListViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource.count
+    
+    internal func search(text: String) {
+        // TODO: Search Movie
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: MovieListeCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieListCell", for: indexPath) as! MovieListeCell
-        let item = dataSource[indexPath.item]
-        
-        cell.setupCell(with: item)
-        
-        return cell
+    internal func hideSearchBar() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.searchBar.alpha = 0
+        }, completion: { finished in
+            self.navigationItem.titleView = nil
+            self.navigationItem.rightBarButtonItems = [self.searchButton]
+            self.title = "TMDB Upcoming"
+        })
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let footer:UICollectionReusableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "MovieListFooter", for: indexPath)
-        return footer
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return canLoadMore ? CGSize(width: 100, height: 100) : CGSize.zero
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
-        self.loadData()
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "SegueToMovieDetail", sender: dataSource[indexPath.item])
+    // MARK: - Private Functions
+    @objc private func showSearchBar() {
+        searchBar.alpha = 0
+        navigationItem.titleView = searchBar
+        navigationItem.rightBarButtonItems = []
+        UIView.animate(withDuration: 0.5, animations: {
+            self.searchBar.alpha = 1
+        }, completion: { finished in
+            self.searchBar.becomeFirstResponder()
+        })
     }
 }
