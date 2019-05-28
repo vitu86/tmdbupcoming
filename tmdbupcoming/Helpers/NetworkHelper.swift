@@ -21,7 +21,7 @@ class NetworkHelper {
     
     // MARK: - Private Properties
     private var genresList:[Genre] = []
-    private var currentMovieListPage: Int = 1
+    private var currentMovieListPage: Int = 0
     
     // MARK: - Private Constants
     private let TMDB_API_KEY: String = "1f54bd990f1cdfb230adb312546d765d"
@@ -30,17 +30,21 @@ class NetworkHelper {
     private let TMDB_IMAGES_BASE_URL: String = "https://image.tmdb.org/t/p"
     
     // MARK: - Public Functions
-    func getNextMovieList(onComplete:@escaping ([Movie]) -> ()) {
+    func getNextMovieList(with filter: String, _ resetPages: Bool = false, onComplete:@escaping ([Movie]?) -> ()) {
+        if resetPages {
+            currentMovieListPage = 0
+        }
+        currentMovieListPage += 1
         if genresList.isEmpty{
             loadGenres { (result) in
                 if result {
-                    self.loadMovies(onComplete: onComplete)
+                    self.loadMovies(with: filter, onComplete: onComplete)
                 } else {
                     onComplete([])
                 }
             }
         } else {
-            loadMovies(onComplete: onComplete)
+            loadMovies(with: filter, onComplete: onComplete)
         }
     }
     
@@ -68,12 +72,32 @@ class NetworkHelper {
         })
     }
     
-    private func loadMovies(onComplete:@escaping ([Movie]) -> ()) {
+    private func loadMovies(with filter: String, onComplete:@escaping ([Movie]?) -> ()) {
         let params: Parameters = ["api_key": TMDB_API_KEY, "page": currentMovieListPage]
         Alamofire.request(TMDB_MOVIES_URL, method: .get, parameters: params).responseArray(keyPath: "results") { (response: DataResponse<[Movie]>) in
             if let movieList = response.result.value {
-                self.currentMovieListPage = self.currentMovieListPage + 1
-                onComplete(movieList.map({ (item) -> Movie in
+                
+                guard !movieList.isEmpty else {
+                    onComplete(nil)
+                    return
+                }
+                
+                self.currentMovieListPage += 1
+                
+                var filteredNewMovies: [Movie] = []
+                if filter.isEmpty {
+                    filteredNewMovies = movieList
+                } else {
+                    // Filter movies by search string
+                    filteredNewMovies = movieList.filter({ (item) -> Bool in
+                        if let movieName = item.title {
+                            return movieName.lowercased().contains(filter.lowercased())
+                        }
+                        return false
+                    })
+                }
+                
+                filteredNewMovies = filteredNewMovies.map({ (item) -> Movie in
                     // Fill genre list
                     if let genreIds = item.genreIds {
                         item.genreList = self.getGenres(with: genreIds)
@@ -89,7 +113,11 @@ class NetworkHelper {
                     }
                     
                     return item
-                }))
+                })
+                
+                onComplete(filteredNewMovies)
+            } else {
+                onComplete(nil)
             }
         }
     }

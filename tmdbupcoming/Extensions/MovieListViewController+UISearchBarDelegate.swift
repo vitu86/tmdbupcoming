@@ -15,7 +15,6 @@ extension MovieListViewController: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print("search button")
         if let searchString = searchBar.text {
             searchBar.resignFirstResponder()
             hideSearchBar()

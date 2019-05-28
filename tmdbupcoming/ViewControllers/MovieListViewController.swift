@@ -15,18 +15,21 @@ class MovieListViewController: UIViewController {
     
     // MARK: - Internal Properties (visible to extensions)
     internal var canLoadMore: Bool = true
+    internal var isFooterShowing: Bool = false
     internal var dataSource: [Movie] = []
     internal var searchBar: UISearchBar = UISearchBar()
     
     // MARK: - Private Properties
     private var searchButton: UIBarButtonItem!
+    private var refreshButton: UIBarButtonItem!
+    private var filterString: String = ""
+    private var needReset: Bool = false
     
     
     // MARK: - UIViewController Override Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        loadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -42,34 +45,48 @@ class MovieListViewController: UIViewController {
         movieCollection.delegate = self
         movieCollection.dataSource = self
         
-        // ConfigureSearchBar
+        // Configure Navigation Itens
         searchBar.delegate = self
         searchBar.showsCancelButton = true
-        
         searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(showSearchBar))
-        
+        refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshMovieList))
         hideSearchBar()
     }
     
     // MARK: - Internal Functions (visible to extensions)
     internal func loadData() {
         if canLoadMore {
-            NetworkHelper.sharedInstance.getNextMovieList { (movies) in
-                if movies.isEmpty {
+            NetworkHelper.sharedInstance.getNextMovieList(with: filterString, needReset) { (movies) in
+                self.needReset = false
+                
+                guard let movies = movies else {
                     self.canLoadMore = false
+                    self.movieCollection.collectionViewLayout.invalidateLayout()
+                    return
                 }
+                
                 var indexesToReload: [IndexPath] = []
                 for item in movies {
                     indexesToReload.append(IndexPath(row: self.dataSource.count, section: 0))
                     self.dataSource.append(item)
                 }
-                self.movieCollection.insertItems(at: indexesToReload)
+                
+                self.movieCollection.performBatchUpdates({
+                    self.movieCollection.insertItems(at: indexesToReload)
+                }, completion: { (_) in
+                    if self.isFooterShowing {
+                        // If number of movies doesn't fill screen, load more until fill or the list is over.
+                        self.loadData()
+                    }
+                })
+                
             }
         }
     }
     
     internal func search(text: String) {
-        // TODO: Search Movie
+        filterString = text
+        resetData()
     }
     
     internal func hideSearchBar() {
@@ -77,8 +94,13 @@ class MovieListViewController: UIViewController {
             self.searchBar.alpha = 0
         }, completion: { finished in
             self.navigationItem.titleView = nil
-            self.navigationItem.rightBarButtonItems = [self.searchButton]
-            self.title = "TMDB Upcoming"
+            if self.filterString.isEmpty {
+                self.title = "TMDB Upcoming"
+                self.navigationItem.rightBarButtonItems = [self.searchButton]
+            } else {
+                self.title = "TMDB Upcoming - \"\(self.filterString)\""
+                self.navigationItem.rightBarButtonItems = [self.refreshButton, self.searchButton]
+            }
         })
     }
     
@@ -92,5 +114,19 @@ class MovieListViewController: UIViewController {
         }, completion: { finished in
             self.searchBar.becomeFirstResponder()
         })
+    }
+    
+    @objc private func refreshMovieList() {
+        filterString = ""
+        searchBar.text = ""
+        hideSearchBar()
+        resetData()
+    }
+    private func resetData() {
+        dataSource = []
+    
+        canLoadMore = true
+        needReset = true
+        movieCollection.reloadData()
     }
 }
