@@ -30,17 +30,22 @@ class NetworkHelper {
     private let TMDB_IMAGES_BASE_URL: String = "https://image.tmdb.org/t/p"
     
     // MARK: - Public Functions
-    func getNextMovieList(with filter: String, _ resetPages: Bool = false, onComplete:@escaping ([Movie]?) -> ()) {
+    func getNextMovieList(with filter: String, _ resetPages: Bool = false, onComplete:@escaping ([Movie]?, Bool) -> ()) {
         if resetPages {
             currentMovieListPage = 0
         }
         currentMovieListPage += 1
         if genresList.isEmpty{
-            loadGenres { (result) in
+            loadGenres { (result, error) in
+                if error {
+                    onComplete(nil, true)
+                    return
+                }
+                
                 if result {
                     self.loadMovies(with: filter, onComplete: onComplete)
                 } else {
-                    onComplete([])
+                    onComplete([], false)
                 }
             }
         } else {
@@ -49,14 +54,18 @@ class NetworkHelper {
     }
     
     //MARK: - Private Functions
-    private func loadGenres(onComplete: @escaping (Bool) -> ()) {
+    private func loadGenres(onComplete: @escaping (Bool, Bool) -> ()) {
         let params: Parameters = ["api_key": TMDB_API_KEY]
         Alamofire.request(TMDB_GENRES_URL, method: .get, parameters: params).responseArray(keyPath: "genres") { (response: DataResponse<[Genre]>) in
+            if response.response == nil {
+                onComplete(false, true)
+                return
+            }
             if let genres = response.result.value {
                 self.genresList = genres
-                onComplete(true)
+                onComplete(true, false)
             } else {
-                onComplete(false)
+                onComplete(false, false)
             }
         }
     }
@@ -72,13 +81,19 @@ class NetworkHelper {
         })
     }
     
-    private func loadMovies(with filter: String, onComplete:@escaping ([Movie]?) -> ()) {
+    private func loadMovies(with filter: String, onComplete:@escaping ([Movie]?, Bool) -> ()) {
         let params: Parameters = ["api_key": TMDB_API_KEY, "page": currentMovieListPage]
         Alamofire.request(TMDB_MOVIES_URL, method: .get, parameters: params).responseArray(keyPath: "results") { (response: DataResponse<[Movie]>) in
+            
+            if response.response == nil {
+                onComplete(nil, true)
+                return
+            }
+            
             if let movieList = response.result.value {
                 
                 guard !movieList.isEmpty else {
-                    onComplete(nil)
+                    onComplete(nil, false)
                     return
                 }
                 
@@ -115,9 +130,9 @@ class NetworkHelper {
                     return item
                 })
                 
-                onComplete(filteredNewMovies)
+                onComplete(filteredNewMovies, false)
             } else {
-                onComplete(nil)
+                onComplete(nil, false)
             }
         }
     }

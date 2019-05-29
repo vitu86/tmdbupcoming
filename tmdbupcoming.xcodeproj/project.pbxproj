@@ -56,7 +56,7 @@
 		4E51FDF6229B86D90059C91C /* MovieDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
 		4E51FDF8229B8CE10059C91C /* MovieListViewController+UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovieListViewController+UICollectionView.swift"; sourceTree = "<group>"; };
 		4E51FDFA229B8EF00059C91C /* MovieListViewController+UISearchBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovieListViewController+UISearchBarDelegate.swift"; sourceTree = "<group>"; };
-		4EC3EE6B229B427B00AC09B3 /* tmdbupcoming.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tmdbupcoming.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4EC3EE6B229B427B00AC09B3 /* TMDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EC3EE6E229B427B00AC09B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4EC3EE73229B427B00AC09B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4EC3EE75229B427B00AC09B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -186,7 +186,7 @@
 		4EC3EE6C229B427B00AC09B3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4EC3EE6B229B427B00AC09B3 /* tmdbupcoming.app */,
+				4EC3EE6B229B427B00AC09B3 /* TMDB.app */,
 				4EC3EE7F229B427C00AC09B3 /* tmdbupcomingTests.xctest */,
 				4EC3EE8A229B427C00AC09B3 /* tmdbupcomingUITests.xctest */,
 			);
@@ -256,7 +256,7 @@
 			);
 			name = tmdbupcoming;
 			productName = tmdbupcoming;
-			productReference = 4EC3EE6B229B427B00AC09B3 /* tmdbupcoming.app */;
+			productReference = 4EC3EE6B229B427B00AC09B3 /* TMDB.app */;
 			productType = "com.apple.product-type.application";
 		};
 		4EC3EE7E229B427C00AC09B3 /* tmdbupcomingTests */ = {
@@ -651,7 +651,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cc.vitorcosta.tmdbupcoming;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TMDB;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -670,7 +670,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cc.vitorcosta.tmdbupcoming;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TMDB;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -56,7 +56,14 @@ class MovieListViewController: UIViewController {
     // MARK: - Internal Functions (visible to extensions)
     internal func loadData() {
         if canLoadMore {
-            NetworkHelper.sharedInstance.getNextMovieList(with: filterString, needReset) { (movies) in
+            NetworkHelper.sharedInstance.getNextMovieList(with: filterString, needReset) { (movies, error) in
+                
+                if error {
+                    self.filterString = "Error"
+                    self.hideSearchBar()
+                    self.showAlert(title: "Attention", message: "Could not load movies. Check your connectin and click on refresh button!")
+                }
+                
                 self.needReset = false
                 
                 guard let movies = movies else {

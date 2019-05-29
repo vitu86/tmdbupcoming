@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import MaterialComponents
 
 extension UIViewController {
     
@@ -20,39 +19,5 @@ extension UIViewController {
         }
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: okFunction))
         present(alert, animated: true)
-    }
-    
-    func showCenterIndicator() {
-        UIApplication.shared.beginIgnoringInteractionEvents()
-        let activityIndicator = ActivityIndicator.shared
-        activityIndicator.startAnimating()
-        view.addSubview(activityIndicator)
-    }
-    
-    func hideCenterIndicator() {
-        if UIApplication.shared.isIgnoringInteractionEvents {
-            UIApplication.shared.endIgnoringInteractionEvents()
-        }
-        let activityIndicator = ActivityIndicator.shared
-        activityIndicator.stopAnimating()
-        activityIndicator.removeFromSuperview()
-    }
-    
-}
-
-class ActivityIndicator: MDCActivityIndicator {
-    
-    static let shared = MDCActivityIndicator(frame: CGRect(x: UIScreen.main.bounds.width * 0.5 - 24, y:
-        UIScreen.main.bounds.height * 0.5 - 24, width: 48, height: 48))
-    
-    private init() {
-        super.init(frame: CGRect.init())
-        cycleColors = [UIColor.black]
-        strokeWidth = 4
-        radius = 24
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
