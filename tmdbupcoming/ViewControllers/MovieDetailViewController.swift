@@ -61,5 +61,4 @@ class MovieDetailViewController: UIViewController {
             overviewLabel.text = "No overview provided"
         }
     }
-    
 }

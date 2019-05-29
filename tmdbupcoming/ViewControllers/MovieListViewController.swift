@@ -129,6 +129,7 @@ class MovieListViewController: UIViewController {
         hideSearchBar()
         resetData()
     }
+    
     private func resetData() {
         dataSource = []    
         canLoadMore = true
