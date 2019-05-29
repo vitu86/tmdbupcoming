@@ -1,6 +1,6 @@
 # TMDB Upcoming
 ## What?
-A TMDB Upcoming Movie List with search field and movie details!
+A TMDB Upcoming movies list with search field and movie details!
 ## How it works?
 User can see the list of the upcoming movies in TMDb API. Also, the user can search within the movie list byu the title of the movie. And after this, see the movie details.
 
@@ -8,7 +8,7 @@ User can see the list of the upcoming movies in TMDb API. Also, the user can sea
 1. You can [clone](https://help.github.com/en/articles/cloning-a-repository) or [download](https://stackoverflow.com/questions/6466945/fastest-way-to-download-a-github-project) the repository
 2. [Install CocoaPods on your machine](https://guides.cocoapods.org/using/getting-started.html) (Just if you don't have it yet)
 3. Run `pod install` in the project folder
-4. Open tmdbupcmonig.xcworkspace
+4. Open tmdbupcmonig.xcworkspace using [Xcode](https://developer.apple.com/xcode/)
 5. Hit the "Run" button, or "Command + B" on keyboard.
 
 ## Detailed explanation
