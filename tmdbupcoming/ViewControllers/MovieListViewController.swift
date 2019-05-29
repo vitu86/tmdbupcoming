@@ -56,7 +56,7 @@ class MovieListViewController: UIViewController {
     // MARK: - Internal Functions (visible to extensions)
     internal func loadData() {
         if canLoadMore {
-            NetworkHelper.sharedInstance.getNextMovieList(with: filterString, needReset) { (movies, error) in
+            NetworkHelper.shared.getNextMovieList(with: filterString, needReset) { (movies, error) in
                 
                 if error {
                     self.filterString = "Error"
@@ -130,8 +130,7 @@ class MovieListViewController: UIViewController {
         resetData()
     }
     private func resetData() {
-        dataSource = []
-    
+        dataSource = []    
         canLoadMore = true
         needReset = true
         movieCollection.reloadData()

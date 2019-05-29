@@ -14,7 +14,7 @@ class NetworkHelper {
     
     // MARK: Singleton References
     // STATIC OBJECT REFERENCE
-    static let sharedInstance:NetworkHelper = NetworkHelper()
+    static let shared:NetworkHelper = NetworkHelper()
     // Private init for override purpose
     private init() {
     }
